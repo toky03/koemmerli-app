@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "toky-bring",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}

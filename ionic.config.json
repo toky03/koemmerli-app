@@ -1,0 +1,7 @@
+{
+  "name": "toky-bring",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
