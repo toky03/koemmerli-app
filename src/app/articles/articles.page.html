@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Artikel</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let article of articles">
+    <ion-card-header>{{article.heading}}</ion-card-header>
+  </ion-card>
+
+  <ion-button>
+    Artikel hinzufügen
+  </ion-button>
+
+</ion-content>
