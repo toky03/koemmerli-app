@@ -6,12 +6,20 @@
 
 <ion-content>
 
-  <ion-card *ngFor="let article of articles">
-    <ion-card-header>{{article.heading}}</ion-card-header>
+  <ion-card *ngFor="let article of articles$ | async">
+    <ion-card-header>{{article.item}}</ion-card-header>
+    <ion-card-content>Für {{article.for}}</ion-card-content>
   </ion-card>
 
-  <ion-button>
+  <form [formGroup]="articlesForm" (ngSubmit)="createArticle()">
+    <ion-input placeholder="Artikelname" formControlName="item"></ion-input>
+    <ion-input placeholder="Fuerr" formControlName="for"></ion-input>
+
+  <ion-button type="submit">
     Artikel hinzufügen
   </ion-button>
+
+  </form>
+  
 
 </ion-content>

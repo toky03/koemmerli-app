@@ -5,13 +5,13 @@ import * as OrderActions from './order.actions';
 
 export const ordersFeatureKey = 'orders';
 
-export interface State extends EntityState<Order> {
+export interface StateOrder extends EntityState<Order> {
   // additional entities state properties
 }
 
 export const adapter: EntityAdapter<Order> = createEntityAdapter<Order>();
 
-export const initialState: State = adapter.getInitialState({
+export const initialState: StateOrder = adapter.getInitialState({
   // additional entity state properties
 });
 
