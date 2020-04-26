@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ConfigService } from '../core/service/config.service';
+import { Observable } from 'rxjs';
+import { Category } from './config.model';
 
 @Component({
   selector: 'app-config',
@@ -7,7 +11,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigPage implements OnInit {
 
-  constructor() { }
+  private categories$: Observable<Category[]>; 
+
+
+  constructor(private configService: ConfigService) { }
 
   ngOnInit() {
   }

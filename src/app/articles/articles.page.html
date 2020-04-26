@@ -2,24 +2,55 @@
   <ion-toolbar>
     <ion-title>Artikel</ion-title>
   </ion-toolbar>
+  <!-- Filter
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="6" size-lg="3">
+        <ion-input>
+        </ion-input>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
 </ion-header>
 
 <ion-content>
+  <ion-list>
 
-  <ion-card *ngFor="let article of articles$ | async">
-    <ion-card-header>{{article.item}}</ion-card-header>
-    <ion-card-content>Für {{article.for}}</ion-card-content>
-  </ion-card>
-
-  <form [formGroup]="articlesForm" (ngSubmit)="createArticle()">
-    <ion-input placeholder="Artikelname" formControlName="item"></ion-input>
-    <ion-input placeholder="Fuerr" formControlName="for"></ion-input>
-
-  <ion-button type="submit">
-    Artikel hinzufügen
-  </ion-button>
-
-  </form>
+  </ion-list>
   
+  <div *ngFor="let article of articles$ | async">
+    <ion-item>
+      <ion-checkbox [checked]="article.marked" (click)="markArticle(article.id, article.marked)"></ion-checkbox>
+          <app-article-item [article]="article">
+          </app-article-item>
+    </ion-item>
+  </div>
 
 </ion-content>
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="9" size-md="6" size-lg="4">
+        <form [formGroup]="articlesForm">
+          <ion-item>
+            <ion-label>Artikelname</ion-label>
+            <ion-input placeholder="Artikelname" formControlName="item"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Kategorie</ion-label>
+            <ion-select formControlName="category" interface="action-sheet">
+              <ion-select-option [value]="category" *ngFor="let category of categories$ | async">{{category.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+      
+        <ion-button type="submit" (click)="createArticle()" [disabled]="!articlesForm.valid">
+          Artikel hinzufügen
+        </ion-button>
+        <ion-button type="buttion" (click)="createOrderList()">Erstelle Einfakusliste</ion-button>
+        </form>
+        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
-
+import { HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
@@ -12,22 +12,20 @@ import { StoreModule } from "@ngrx/store";
 import { reducers, metaReducers } from "./state";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
-import * as fromReducer from "./state/ordering.reducer";
 import { EffectsModule } from "@ngrx/effects";
-import * as fromOrdering from "./state/ordering.reducer";
 import { OrderingEffects } from "./state/ordering.effects";
-import * as fromOrder from "./orders/order.reducer";
-import * as fromArticle from "./articles/article.reducer";
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CreateOrderListComponent } from './create-order-list/create-order-list.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, CreateOrderListComponent],
+  entryComponents: [CreateOrderListComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
