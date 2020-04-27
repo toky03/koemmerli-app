@@ -5,6 +5,18 @@
 </ion-header>
 
 <ion-content>
+  <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
+    <div *ngFor="let category of categories$ | async">
+      <ion-item>
+        <ion-label>
+        {{category.name}}
+        </ion-label>
+        <ion-reorder ></ion-reorder>
+      </ion-item>
+    </div>
+
+  </ion-reorder-group>
+
 
 
 </ion-content>

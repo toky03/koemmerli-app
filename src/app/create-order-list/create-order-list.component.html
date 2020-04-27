@@ -1,8 +1,12 @@
-<ion-item>
-    <ion-label>Name der Einkaufsliste</ion-label>
-    <ion-input></ion-input>
-</ion-item>
-<ion-button (click)="submit()">Erstellen</ion-button>
-<div>Artikel {{artikel | async | json}}</div>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Einkaufsliste erstellen</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-
+<ion-content>
+  <ion-item>
+    <ion-input [(ngModel)]="listname" placeholder="Listen Name"></ion-input>
+  </ion-item>
+  <ion-button [disabled]="listname === ''" (click)="submit()">Erstellen</ion-button>
+</ion-content>

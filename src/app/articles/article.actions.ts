@@ -3,9 +3,20 @@ import { Update } from '@ngrx/entity';
 
 import { Article } from './article.model';
 
-export const loadArticles = createAction(
-  '[Article/API] Load Articles', 
+export const loadArticles = createAction('[Article/API] Load Articles');
+
+export const loadArticlesSuccessful = createAction(
+  '[Article/API] Load ArticlesSuccessful',
   props<{ articles: Article[] }>()
+);
+
+export const saveArticles = createAction(
+  '[Article/API] Save Articles',
+  props<{ articles: Article[] }>()
+);
+
+export const saveArticlesSuccesful = createAction(
+  '[Article/API] Save Articles successful'
 );
 
 export const addArticle = createAction(
@@ -48,6 +59,4 @@ export const deleteArticles = createAction(
   props<{ ids: string[] }>()
 );
 
-export const clearArticles = createAction(
-  '[Article/API] Clear Articles'
-);
+export const clearArticles = createAction('[Article/API] Clear Articles');

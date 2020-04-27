@@ -3,9 +3,25 @@ import { Update } from '@ngrx/entity';
 
 import { Order } from './order.model';
 
-export const loadOrders = createAction(
-  '[Order/API] Load Orders', 
+export const createOrderList = createAction(
+  '[Order/Api] create OrderList',
+  props<{ listName: string }>()
+);
+
+export const loadOrders = createAction('[Order/API] Load Orders');
+
+export const loadOrdersSuccesful = createAction(
+  '[Order/API] Load OrdersSuccessful',
   props<{ orders: Order[] }>()
+);
+
+export const saveOrders = createAction(
+  '[Order/API] Save Orders',
+  props<{ orders: Order[] }>()
+);
+
+export const saveOrdersSuccessful = createAction(
+  '[Order/API] Save Orders successful'
 );
 
 export const addOrder = createAction(
@@ -48,6 +64,4 @@ export const deleteOrders = createAction(
   props<{ ids: string[] }>()
 );
 
-export const clearOrders = createAction(
-  '[Order/API] Clear Orders'
-);
+export const clearOrders = createAction('[Order/API] Clear Orders');

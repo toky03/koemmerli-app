@@ -5,5 +5,5 @@ export interface Order {
   id: string;
   name: string;
   eintraege: Article[];
-  state: ArticleStatus;
+  state: 'Erfasst' | 'Eingekauft' | 'Verrechnet';
 }

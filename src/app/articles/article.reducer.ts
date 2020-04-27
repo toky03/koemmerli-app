@@ -23,7 +23,6 @@ export const reducer = createReducer(
       id: action.article.id ? action.article.id : generateId(ids),
       ...action.article,
     };
-
     return adapter.addOne(newArticle, state);
   }),
   on(ArticleActions.upsertArticle, (state, action) =>
@@ -47,7 +46,7 @@ export const reducer = createReducer(
   on(ArticleActions.deleteArticles, (state, action) =>
     adapter.removeMany(action.ids, state)
   ),
-  on(ArticleActions.loadArticles, (state, action) =>
+  on(ArticleActions.loadArticlesSuccessful, (state, action) =>
     adapter.setAll(action.articles, state)
   ),
   on(ArticleActions.clearArticles, (state) => adapter.removeAll(state))
@@ -55,7 +54,6 @@ export const reducer = createReducer(
 
 function generateId(ids: string[]): string {
   const tempIds = ids.filter((id) => /^<\d+>$/.test(id));
-  console.log(tempIds.map(id => +id.match("\\d+")));
   const newIndex =
     tempIds && tempIds.length >= 1
       ? Math.max.apply(Math, tempIds.map(id => +id.match("\\d+"))) + 1

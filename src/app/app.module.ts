@@ -1,19 +1,19 @@
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { RouteReuseStrategy } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
-import { SplashScreen } from "@ionic-native/splash-screen/ngx";
-import { StatusBar } from "@ionic-native/status-bar/ngx";
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-import { StoreModule } from "@ngrx/store";
-import { reducers, metaReducers } from "./state";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { environment } from "../environments/environment";
-import { EffectsModule } from "@ngrx/effects";
-import { OrderingEffects } from "./state/ordering.effects";
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './state';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { OrderingEffects } from './state/ordering.effects';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateOrderListComponent } from './create-order-list/create-order-list.component';
 
@@ -35,9 +35,7 @@ import { CreateOrderListComponent } from './create-order-list/create-order-list.
       },
     }),
     EffectsModule.forRoot([OrderingEffects]),
-    !environment.production
-      ? StoreDevtoolsModule.instrument()
-      : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [
     StatusBar,

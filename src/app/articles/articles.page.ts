@@ -1,20 +1,25 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { Article } from "./article.model";
-import { Store } from "@ngrx/store";
-import { addArticle, updateArticle } from "./article.actions";
-import { selectAllArticles } from "../state/ordering.selectors";
-import { Observable } from "rxjs";
-import { map, tap, toArray } from "rxjs/operators";
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { Category } from "../config/config.model";
-import { ConfigService } from "../core/service/config.service";
-import { PopoverController, ModalController } from "@ionic/angular";
-import { CreateOrderListComponent } from "../create-order-list/create-order-list.component";
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Article } from './article.model';
+import { Store } from '@ngrx/store';
+import {
+  addArticle,
+  updateArticle,
+  loadArticles,
+  saveArticles,
+} from './article.actions';
+import { selectAllArticles } from '../state/ordering.selectors';
+import { Observable } from 'rxjs';
+import { map, tap, toArray } from 'rxjs/operators';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Category } from '../config/config.model';
+import { ConfigService } from '../core/service/config.service';
+import { PopoverController, ModalController } from '@ionic/angular';
+import { CreateOrderListComponent } from '../create-order-list/create-order-list.component';
 
 @Component({
-  selector: "app-articles",
-  templateUrl: "./articles.page.html",
-  styleUrls: ["./articles.page.scss"],
+  selector: 'app-articles',
+  templateUrl: './articles.page.html',
+  styleUrls: ['./articles.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticlesPage implements OnInit {
@@ -30,6 +35,7 @@ export class ArticlesPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.store.dispatch(loadArticles());
     this.articles$ = this.store.select(selectAllArticles);
     this.initForm();
     this.initOptions();
@@ -62,9 +68,9 @@ export class ArticlesPage implements OnInit {
 
   private initForm(): void {
     this.articlesForm = this.formBuilder.group({
-      for: [""],
-      item: ["", Validators.required],
-      category: [""],
+      for: [''],
+      item: ['', Validators.required],
+      category: [''],
       marked: [],
     });
   }

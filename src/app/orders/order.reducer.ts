@@ -15,41 +15,54 @@ export const initialState: StateOrder = adapter.getInitialState({
   // additional entity state properties
 });
 
-
 export const reducer = createReducer(
   initialState,
-  on(OrderActions.addOrder,
-    (state, action) => adapter.addOne(action.order, state)
+  on(OrderActions.addOrder, (state, action) => {
+    const ids = Object.values(state.entities).map((order) => order.id);
+    const newOrder: Order = {
+      ...action.order,
+      id: action.order.id ? action.order.id : generateId(ids),
+    };
+    return adapter.addOne(newOrder, state);
+  }),
+  on(OrderActions.upsertOrder, (state, action) =>
+    adapter.upsertOne(action.order, state)
   ),
-  on(OrderActions.upsertOrder,
-    (state, action) => adapter.upsertOne(action.order, state)
+  on(OrderActions.addOrders, (state, action) =>
+    adapter.addMany(action.orders, state)
   ),
-  on(OrderActions.addOrders,
-    (state, action) => adapter.addMany(action.orders, state)
+  on(OrderActions.upsertOrders, (state, action) =>
+    adapter.upsertMany(action.orders, state)
   ),
-  on(OrderActions.upsertOrders,
-    (state, action) => adapter.upsertMany(action.orders, state)
+  on(OrderActions.updateOrder, (state, action) =>
+    adapter.updateOne(action.order, state)
   ),
-  on(OrderActions.updateOrder,
-    (state, action) => adapter.updateOne(action.order, state)
+  on(OrderActions.updateOrders, (state, action) =>
+    adapter.updateMany(action.orders, state)
   ),
-  on(OrderActions.updateOrders,
-    (state, action) => adapter.updateMany(action.orders, state)
+  on(OrderActions.deleteOrder, (state, action) =>
+    adapter.removeOne(action.id, state)
   ),
-  on(OrderActions.deleteOrder,
-    (state, action) => adapter.removeOne(action.id, state)
+  on(OrderActions.deleteOrders, (state, action) =>
+    adapter.removeMany(action.ids, state)
   ),
-  on(OrderActions.deleteOrders,
-    (state, action) => adapter.removeMany(action.ids, state)
+  on(OrderActions.loadOrdersSuccesful, (state, action) =>
+    adapter.setAll(action.orders, state)
   ),
-  on(OrderActions.loadOrders,
-    (state, action) => adapter.setAll(action.orders, state)
-  ),
-  on(OrderActions.clearOrders,
-    state => adapter.removeAll(state)
-  ),
+  on(OrderActions.clearOrders, (state) => adapter.removeAll(state))
 );
 
+function generateId(ids: string[]): string {
+  const tempIds = ids.filter((id) => /^<\d+>$/.test(id));
+  const newIndex =
+    tempIds && tempIds.length >= 1
+      ? Math.max.apply(
+          Math,
+          tempIds.map((id) => +id.match('\\d+'))
+        ) + 1
+      : 0;
+  return `<${newIndex}>`;
+}
 
 export const {
   selectIds,
