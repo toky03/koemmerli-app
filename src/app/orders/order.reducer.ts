@@ -25,6 +25,27 @@ export const reducer = createReducer(
     };
     return adapter.addOne(newOrder, state);
   }),
+  on(OrderActions.markArticleAsBought, (state, action) => {
+    const oldOrderList = Object.values(state.entities).find(
+      (p) => p.id === action.orderId
+    );
+    let tempBoughtItems = oldOrderList.boughtArticles
+      ? oldOrderList.boughtArticles.slice(0)
+      : [];
+    if (tempBoughtItems.includes(action.articleId)) {
+      const index = tempBoughtItems.findIndex((a) => a === action.articleId);
+      tempBoughtItems.splice(index, 1);
+    } else {
+      tempBoughtItems = [...tempBoughtItems, action.articleId];
+    }
+    return adapter.updateOne(
+      {
+        id: action.orderId,
+        changes: { ...oldOrderList, boughtArticles: tempBoughtItems },
+      },
+      state
+    );
+  }),
   on(OrderActions.upsertOrder, (state, action) =>
     adapter.upsertOne(action.order, state)
   ),
@@ -57,9 +78,9 @@ function generateId(ids: string[]): string {
   const newIndex =
     tempIds && tempIds.length >= 1
       ? Math.max.apply(
-          Math,
-          tempIds.map((id) => +id.match('\\d+'))
-        ) + 1
+        Math,
+        tempIds.map((id) => +id.match('\\d+'))
+      ) + 1
       : 0;
   return `<${newIndex}>`;
 }

@@ -48,6 +48,7 @@ export class OrderingEffects {
           eintraege: markedArticles,
           name: action.listName,
           state: 'Erfasst',
+          boughtArticles: []
         };
         return addOrder({ order });
       })

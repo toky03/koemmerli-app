@@ -6,4 +6,5 @@ export interface Order {
   name: string;
   eintraege: Article[];
   state: 'Erfasst' | 'Eingekauft' | 'Verrechnet';
+  boughtArticles: string[];
 }

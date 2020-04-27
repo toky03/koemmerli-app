@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Order } from './order.model';
 import { selectAllOrders } from '../state/ordering.selectors';
-import { loadOrders } from './order.actions';
+import { loadOrders, markArticleAsBought } from './order.actions';
 
 @Component({
   selector: 'app-orders',
@@ -19,5 +19,10 @@ export class OrdersPage implements OnInit {
     this.store.dispatch(loadOrders());
 
     this.orders$ = this.store.select(selectAllOrders);
+  }
+
+  toggleItem(articleId: string, orderId: string): void {
+    this.store.dispatch(markArticleAsBought({articleId, orderId}))
+
   }
 }

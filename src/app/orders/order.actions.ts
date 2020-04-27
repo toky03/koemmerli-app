@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 
 import { Order } from './order.model';
+import { OrdersPageModule } from './orders.module';
 
 export const createOrderList = createAction(
   '[Order/Api] create OrderList',
@@ -28,6 +29,11 @@ export const addOrder = createAction(
   '[Order/API] Add Order',
   props<{ order: Order }>()
 );
+
+export const markArticleAsBought = createAction(
+  '[order/Api] Mark Article as Bought',
+  props<{articleId: string, orderId: string}>()
+)
 
 export const upsertOrder = createAction(
   '[Order/API] Upsert Order',

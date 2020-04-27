@@ -11,9 +11,30 @@
         {{order.name}}
       </ion-card-header>
       <ion-card-content>
-        <ion-item *ngFor="let item of order.eintraege | sortArticle">
-          <h1>{{item.item}}</h1>
-          <p>{{item.category?.name}}</p>
+        <ion-item
+          (click)="toggleItem(item.id, order.id)"
+          *ngFor="let item of order.eintraege | sortArticle: order.boughtArticles"
+        >
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">
+                <h2 *ngIf="!order.boughtArticles?.includes(item.id)">
+                  {{item.item}}
+                </h2>
+                <h2 *ngIf="order.boughtArticles?.includes(item.id)">
+                  <s>{{item.item}}</s>
+                </h2>
+              </ion-col>
+              <ion-col size="6">
+                <p *ngIf="!order.boughtArticles?.includes(item.id)">
+                  {{item.category?.name}}
+                </p>
+                <p *ngIf="order.boughtArticles?.includes(item.id)">
+                  <s>{{item.category?.name}}</s>
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-item>
       </ion-card-content>
     </ion-card>
