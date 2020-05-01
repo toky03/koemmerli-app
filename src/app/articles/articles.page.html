@@ -47,7 +47,7 @@
           >
             Artikel hinzufügen
           </ion-button>
-          <ion-button type="buttion" (click)="createOrderList()"
+          <ion-button type="buttion" (click)="createOrderList()" [disabled]="(markedArticles$ | async)?.length <= 0"
             >Erstelle Einfakusliste</ion-button
           >
         </form>

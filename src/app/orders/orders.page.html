@@ -8,10 +8,25 @@
   <ion-list>
     <ion-card *ngFor="let order of orders$ | async">
       <ion-card-header>
-        {{order.name}}
+        <ion-grid>
+          <ion-row>
+            <ion-col size="9">
+              <h3>{{order.name}}</h3>
+            </ion-col>
+            <ion-col size="3">
+              <ion-button style="font-size: 10pt;"
+                item-end
+                color="danger"
+                (click)="deleteOrder(order.id)"
+                ><ion-icon name="trash-outline"></ion-icon
+              ></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-card-header>
       <ion-card-content>
         <ion-item
+          button
           (click)="toggleItem(item.id, order.id)"
           *ngFor="let item of order.eintraege | sortArticle: order.boughtArticles"
         >

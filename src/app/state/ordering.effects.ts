@@ -8,6 +8,7 @@ import {
   saveOrders,
   saveOrdersSuccessful,
   updateOrder,
+  deleteOrder,
 } from '../orders/order.actions';
 import { withLatestFrom, concatMap, switchMap, map } from 'rxjs/operators';
 import {
@@ -26,6 +27,7 @@ import {
   addArticle,
   saveArticlesSuccesful,
   updateArticle,
+  deleteArticle,
 } from '../articles/article.actions';
 
 @Injectable()
@@ -57,7 +59,7 @@ export class OrderingEffects {
 
   triggerSaveOrder$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(addOrder, updateOrder),
+      ofType(addOrder, updateOrder, deleteOrder),
       concatMap((action) =>
         of(action).pipe(withLatestFrom(this.store.select(selectAllOrders)))
       ),
@@ -67,7 +69,7 @@ export class OrderingEffects {
 
   triggerSaveArticles = createEffect(() =>
     this.actions$.pipe(
-      ofType(addArticle, updateArticle),
+      ofType(addArticle, updateArticle, deleteArticle),
       concatMap((action) =>
         of(action).pipe(withLatestFrom(this.store.select(selectAllArticles)))
       ),
@@ -98,7 +100,6 @@ export class OrderingEffects {
       ofType(loadArticles),
       switchMap(() => this.storageService.readArticles()),
       map((articles) => {
-        console.log(articles);
         return loadArticlesSuccessful({ articles: articles ? articles : [] });
       })
     )

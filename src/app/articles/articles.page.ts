@@ -7,7 +7,7 @@ import {
   loadArticles,
   saveArticles,
 } from './article.actions';
-import { selectAllArticles } from '../state/ordering.selectors';
+import { selectAllArticles, selectMarkedArticles } from '../state/ordering.selectors';
 import { Observable } from 'rxjs';
 import { map, tap, toArray } from 'rxjs/operators';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -25,6 +25,7 @@ import { CreateOrderListComponent } from '../create-order-list/create-order-list
 export class ArticlesPage implements OnInit {
   articlesForm: FormGroup;
   articles$: Observable<Article[]>;
+  markedArticles$: Observable<Article[]>;
   categories$: Observable<Category[]>;
 
   constructor(
@@ -37,6 +38,7 @@ export class ArticlesPage implements OnInit {
   ngOnInit() {
     this.store.dispatch(loadArticles());
     this.articles$ = this.store.select(selectAllArticles);
+    this.markedArticles$ = this.store.select(selectMarkedArticles);
     this.initForm();
     this.initOptions();
   }

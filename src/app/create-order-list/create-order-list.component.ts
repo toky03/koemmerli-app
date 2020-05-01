@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { createOrderList } from '../orders/order.actions';
+import { selectMarkedArticles } from '../state/ordering.selectors';
 
 @Component({
   selector: 'app-create-order-list',
@@ -11,17 +12,24 @@ import { createOrderList } from '../orders/order.actions';
   styleUrls: ['./create-order-list.component.css'],
 })
 export class CreateOrderListComponent implements OnInit {
-  listname: string = '';
+  markedArticles$: Observable<Article[]>;
+  listname = '';
 
   constructor(
     private modalController: ModalController,
     private store: Store<{}>
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.markedArticles$ = this.store.select(selectMarkedArticles);
+  }
 
   submit(): void {
     this.store.dispatch(createOrderList({ listName: this.listname }));
+    
+    this.modalController.dismiss();
+  }
+  cancel(): void {
     this.modalController.dismiss();
   }
 }

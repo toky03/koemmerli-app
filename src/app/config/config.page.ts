@@ -11,13 +11,11 @@ import { IonReorderGroup } from '@ionic/angular';
   styleUrls: ['./config.page.scss'],
 })
 export class ConfigPage implements OnInit {
+  @ViewChild(IonReorderGroup, { static: false }) reorderGroup: IonReorderGroup;
 
-  @ViewChild(IonReorderGroup, {static: false}) reorderGroup: IonReorderGroup;
+  categories$: Observable<Category[]>;
 
-  private categories$: Observable<Category[]>; 
-
-
-  constructor(private configService: ConfigService) { }
+  constructor(private configService: ConfigService) {}
 
   ngOnInit() {
     this.categories$ = this.configService.readCategories();
@@ -33,5 +31,4 @@ export class ConfigPage implements OnInit {
     // by the reorder group
     ev.detail.complete();
   }
-
 }

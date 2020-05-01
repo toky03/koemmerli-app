@@ -1,10 +1,12 @@
 import {
   ActionReducerMap,
-  MetaReducer
+  MetaReducer,
+  State
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import * as fromOrder from '../orders/order.reducer';
 import * as fromArticle from '../articles/article.reducer';
+import { InjectionToken } from '@angular/core';
 
 
 export interface OrderingState {
@@ -13,10 +15,11 @@ export interface OrderingState {
 }
 
 export const reducers: ActionReducerMap<OrderingState> = {
-
   [fromOrder.ordersFeatureKey]: fromOrder.reducer,
-  [fromArticle.articlesFeatureKey]: fromArticle.reducer,
+  [fromArticle.articlesFeatureKey]: fromArticle.reducer
 };
 
+export const REDUCERS_TOKEN = new InjectionToken<ActionReducerMap<OrderingState>>('Ordering Reducers');
+export const reducerProvider = { provide: REDUCERS_TOKEN, useValue: reducers };
 
 export const metaReducers: MetaReducer<OrderingState>[] = !environment.production ? [] : [];

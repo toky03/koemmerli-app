@@ -8,5 +8,22 @@
   <ion-item>
     <ion-input [(ngModel)]="listname" placeholder="Listen Name"></ion-input>
   </ion-item>
-  <ion-button [disabled]="listname === ''" (click)="submit()">Erstellen</ion-button>
+  <ion-button [disabled]="listname === ''" (click)="submit()"
+    >Erstellen</ion-button
+  >
+  <ion-item>
+    <h3>Folgende Artikel werden der Einkaufsliste hinzugefügt</h3>
+  </ion-item>
+    <ion-list>
+      <div *ngFor="let article of markedArticles$ | async">
+        <ion-item>
+          <p >{{ article.item }}</p>
+        </ion-item>
+
+      </div>
+     
+    </ion-list>
 </ion-content>
+<ion-footer>
+  <ion-button color="warning" (click)="cancel()">Abbrechen</ion-button>
+</ion-footer>

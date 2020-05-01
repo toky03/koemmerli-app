@@ -9,7 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './state';
+import { reducers, metaReducers, reducerProvider, REDUCERS_TOKEN } from './state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
@@ -27,7 +27,7 @@ import { CreateOrderListComponent } from './create-order-list/create-order-list.
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot(reducers, {
+    StoreModule.forRoot(REDUCERS_TOKEN, {
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
@@ -40,6 +40,7 @@ import { CreateOrderListComponent } from './create-order-list/create-order-list.
   providers: [
     StatusBar,
     SplashScreen,
+    reducerProvider,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],

@@ -1,7 +1,8 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { Action, createReducer, on, State } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { Order } from './order.model';
 import * as OrderActions from './order.actions';
+import { OrderingState } from '../state';
 
 export const ordersFeatureKey = 'orders';
 
@@ -15,7 +16,7 @@ export const initialState: StateOrder = adapter.getInitialState({
   // additional entity state properties
 });
 
-export const reducer = createReducer(
+const orderReducer = createReducer(
   initialState,
   on(OrderActions.addOrder, (state, action) => {
     const ids = Object.values(state.entities).map((order) => order.id);
@@ -72,6 +73,10 @@ export const reducer = createReducer(
   ),
   on(OrderActions.clearOrders, (state) => adapter.removeAll(state))
 );
+
+export function reducer(state: StateOrder | undefined , action: Action) {
+  return orderReducer(state, action);
+}
 
 function generateId(ids: string[]): string {
   const tempIds = ids.filter((id) => /^<\d+>$/.test(id));
