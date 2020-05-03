@@ -12,7 +12,7 @@
           [checked]="article.marked"
           (click)="markArticle(article.id, article.marked)"
         ></ion-checkbox>
-        <app-article-item [article]="article" style="display: contents;"> </app-article-item>
+        <app-article-item (click)="markArticle(article.id, article.marked)" [article]="article" style="display: contents;"> </app-article-item>
       </ion-item>
     </div>
   </ion-list>
